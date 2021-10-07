@@ -10,7 +10,8 @@ const Theme = {
 
 const refs = {
     body: document.querySelector('body'),
-    themeSwitch: document.querySelector('#theme-switch-toggle')
+    themeSwitch: document.querySelector('#theme-switch-toggle'),
+    menu: document.querySelector('.js-menu'),
 }
 
 themeDefaultSetting();
@@ -38,4 +39,10 @@ function themeDefaultSetting() {
 
 // Используя шаблон, создаем разметку всего меню по данным из menu.json и добавляем в DOM в ul.js-menu
 
-console.log(dishesTpl(dishes));
+const cardsMarkup = createDishesCardsMarkup(menu);
+
+refs.menu.insertAdjacentHTML('beforeend', cardsMarkup);
+
+function createDishesCardsMarkup(menu) {
+    return dishesTpl(menu);
+}
