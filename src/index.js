@@ -1,3 +1,5 @@
+import dishesTpl from './templates/dishes.hbs';
+import menu from './menu.json';
 import './styles.css';
 
 // Добавление функционала изменения темы при нажатии на чекбокс #theme-switch-toggle в тулбаре.
@@ -33,3 +35,7 @@ function themeDefaultSetting() {
         refs.themeSwitch.checked = true;
     }
 }
+
+// Используя шаблон, создаем разметку всего меню по данным из menu.json и добавляем в DOM в ul.js-menu
+
+console.log(dishesTpl(dishes));
