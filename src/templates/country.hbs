@@ -1,12 +1,17 @@
-<h1 class="country-heading"> {{name.common}}</h1>>
-<div class="country-thumb">
     {{#each this}}
-    <ul class = "country-descrption">
-        <li><b>Capital:</b>{{capital}}</li>
-        <li><b>Population:</b>{{population}}</li>
-        <li><b>Languages:</b>{{languages}}</li>
-    </ul>     
-    
-    <img src="{{flags.svg}}" alt="flag{{flag}}" width = '200'>'
+    <h2 class = "country-heading">{{name.common}}</h2>
+    <div class="country-thumb">
+        <ul class = "country-description">
+            <li class = "country-description__item"><b class="country-description__title">Capital:</b>{{capital}}</li>
+            <li class = "country-description__item"><b class="country-description__title">Population:</b>{{population}}</li>
+            <li class = "country-description__item"><b class="country-description__title">Languages:</b>
+                <ul class="languages-list">
+                    {{#each languages}}
+                    <li class="languages-list__item">{{this}}</li>
+                   {{/each}}
+                </ul>
+            </li>
+        </ul>     
+        <img src="{{flags.svg}}" alt="flag{{flag}}" width = '300'>
+    </div>
     {{/each}}
-</div>

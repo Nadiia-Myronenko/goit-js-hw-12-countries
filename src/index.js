@@ -22,23 +22,29 @@ function onInput(e) {
     fetchCountries(searchQuery)
         .then(dataProcessing)
         .catch(error => {
-        console.log(error);
-  });
+            defaultModules.set(PNotifyMobile, {});
+            alert({
+                text: '! Information not found!',
+                addClass: 'notify'
+            });
+        });
 }
 
 function dataProcessing(data) {
     if (data.length > 10) {
         defaultModules.set(PNotifyMobile, {});
         alert({
-            text: '!!! You need to make the request more specific!'
+            text: '! Too many matches found. Please, enter a more specific query!',
+            addClass: 'notify',
+            shadow: true
         });
     } else
-    if (data.length === 1) {
-        refs.cardContainer.insertAdjacentHTML('beforeend', countryTpl(data));
-        console.log(data);
-    }
-    else {
-        refs.cardContainer.insertAdjacentHTML('beforeend', countriesTpl(data));
-        console.log(data);
-    }
+        if (data.length === 1) {
+            refs.cardContainer.insertAdjacentHTML('beforeend', countryTpl(data));
+            console.log(data);
+        }
+        else {
+            refs.cardContainer.insertAdjacentHTML('beforeend', countriesTpl(data));
+            console.log(data);
+        }
 }
