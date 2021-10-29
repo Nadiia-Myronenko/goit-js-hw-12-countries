@@ -1,0 +1,12 @@
+<h1 class="country-heading"> {{name.common}}</h1>>
+<div class="country-thumb">
+    {{#each this}}
+    <ul class = "country-descrption">
+        <li><b>Capital:</b>{{capital}}</li>
+        <li><b>Population:</b>{{population}}</li>
+        <li><b>Languages:</b>{{languages}}</li>
+    </ul>     
+    
+    <img src="{{flags.svg}}" alt="flag{{flag}}" width = '200'>'
+    {{/each}}
+</div>

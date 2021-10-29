@@ -1,48 +1,44 @@
-import dishesTpl from './templates/dishes.hbs';
-import menu from './menu.json';
 import './styles.css';
+import debounce from 'lodash.debounce';
+import fetchCountries from './fetchCountries'
 
-// Добавление функционала изменения темы при нажатии на чекбокс #theme-switch-toggle в тулбаре.
-const Theme = {
-  LIGHT: 'light-theme',
-  DARK: 'dark-theme',
-};
+import { alert, defaultModules } from '@pnotify/core';
+import '@pnotify/core/dist/PNotify.css';
+import * as PNotifyMobile from '@pnotify/mobile';
+import '@pnotify/mobile/dist/PNotifyMobile.css';
+
+import countriesTpl from './templates/countries.hbs';
+import countryTpl from './templates/country.hbs';
 
 const refs = {
-    body: document.querySelector('body'),
-    themeSwitch: document.querySelector('#theme-switch-toggle'),
-    menu: document.querySelector('.js-menu'),
+    inputEl: document.querySelector('.query-input'),
+    cardContainer: document.querySelector('.js-card-container')
 }
 
-themeDefaultSetting();
+refs.inputEl.addEventListener('input', debounce(onInput, 1000));
 
-refs.themeSwitch.addEventListener('change', onThemeSwitchChange);
-
-function onThemeSwitchChange() {
-    refs.body.classList.toggle(Theme.DARK);
-
-    if (refs.body.classList.contains(Theme.DARK)) {
-        localStorage.setItem('theme', Theme.DARK)
-    } else { localStorage.setItem('theme', Theme.LIGHT) };
+function onInput(e) {
+    const searchQuery = e.target.value;
+    fetchCountries(searchQuery)
+        .then(dataProcessing)
+        .catch(error => {
+        console.log(error);
+  });
 }
 
-function themeDefaultSetting() {
-    if (!localStorage.length) {
-        localStorage.setItem('theme', Theme.LIGHT)
-    };
-    refs.body.classList.add(localStorage.getItem('theme'));
-    
-    if (refs.body.classList.contains(Theme.DARK)) {
-        refs.themeSwitch.checked = true;
+function dataProcessing(data) {
+    if (data.length > 10) {
+        defaultModules.set(PNotifyMobile, {});
+        alert({
+            text: '!!! You need to make the request more specific!'
+        });
+    } else
+    if (data.length === 1) {
+        refs.cardContainer.insertAdjacentHTML('beforeend', countryTpl(data));
+        console.log(data);
     }
-}
-
-// Используя шаблон, создаем разметку всего меню по данным из menu.json и добавляем в DOM в ul.js-menu
-
-const cardsMarkup = createDishesCardsMarkup(menu);
-
-refs.menu.insertAdjacentHTML('beforeend', cardsMarkup);
-
-function createDishesCardsMarkup(menu) {
-    return dishesTpl(menu);
+    else {
+        refs.cardContainer.insertAdjacentHTML('beforeend', countriesTpl(data));
+        console.log(data);
+    }
 }
