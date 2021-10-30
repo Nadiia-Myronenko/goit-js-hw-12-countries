@@ -19,15 +19,17 @@ refs.inputEl.addEventListener('input', debounce(onInput, 1000));
 
 function onInput(e) {
     const searchQuery = e.target.value;
-    fetchCountries(searchQuery)
-        .then(dataProcessing)
-        .catch(error => {
-            defaultModules.set(PNotifyMobile, {});
-            alert({
-                text: '! Information not found!',
-                addClass: 'notify'
+    if (searchQuery.length > 0) {
+        fetchCountries(searchQuery)
+            .then(dataProcessing)
+            .catch(error => {
+                defaultModules.set(PNotifyMobile, {});
+                alert({
+                    text: '! Information not found!',
+                    addClass: 'notify'
+                });
             });
-        });
+    }
 }
 
 function dataProcessing(data) {
