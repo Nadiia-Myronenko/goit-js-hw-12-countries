@@ -38,14 +38,13 @@ function dataProcessing(data) {
             addClass: 'notify',
             shadow: true
         });
-    } else
-        if (data.length === 1) {
-            refs.cardContainer.insertAdjacentHTML('beforeend', countryTpl(data));
-            console.log(data);
-        }
-        else {
-            refs.cardContainer.insertAdjacentHTML('beforeend', countriesTpl(data));
-            console.log(data);
-        }
+    } else if (data.length === 1) {
+        refs.cardContainer.insertAdjacentHTML('beforeend', countryTpl(data));
+        console.log(data);
+    }
+    else {
+        refs.cardContainer.insertAdjacentHTML('beforeend', countriesTpl(data));
+        console.log(data);
+    }
 
 }
