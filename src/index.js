@@ -47,4 +47,5 @@ function dataProcessing(data) {
             refs.cardContainer.insertAdjacentHTML('beforeend', countriesTpl(data));
             console.log(data);
         }
+
 }
