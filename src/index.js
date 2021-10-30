@@ -19,6 +19,7 @@ refs.inputEl.addEventListener('input', debounce(onInput, 1000));
 
 function onInput(e) {
     const searchQuery = e.target.value;
+    clearCardContiner();
     if (searchQuery.length > 0) {
         fetchCountries(searchQuery)
             .then(dataProcessing)
@@ -50,4 +51,7 @@ function dataProcessing(data) {
         console.log(data);
     }
 
+}
+function clearCardContiner() {
+    refs.cardContainer.innerHTML = "";
 }
