@@ -26,7 +26,8 @@ function onInput(e) {
                 defaultModules.set(PNotifyMobile, {});
                 alert({
                     text: '! Information not found!',
-                    addClass: 'notify'
+                    addClass: 'notify',
+                    maxOpen: 1,
                 });
             });
     }
@@ -38,7 +39,7 @@ function dataProcessing(data) {
         alert({
             text: '! Too many matches found. Please, enter a more specific query!',
             addClass: 'notify',
-            shadow: true
+            maxOpen: 1,
         });
     } else if (data.length === 1) {
         refs.cardContainer.insertAdjacentHTML('beforeend', countryTpl(data));
