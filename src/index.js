@@ -29,6 +29,8 @@ function onInput(e) {
                     text: '! Information not found!',
                     addClass: 'notify',
                     maxOpen: 1,
+                    maxStrategy: 'close',
+                    delay: 2000,
                 });
             });
     }
@@ -41,6 +43,8 @@ function dataProcessing(data) {
             text: '! Too many matches found. Please, enter a more specific query!',
             addClass: 'notify',
             maxOpen: 1,
+            maxStrategy: 'close',
+            delay: 2000,
         });
     } else if (data.length === 1) {
         refs.cardContainer.insertAdjacentHTML('beforeend', countryTpl(data));
